@@ -5,19 +5,23 @@
  */
 
 #include <stdlib.h>
-
+#include <stdio.h>
+struct Node {
+	void* data;
+	struct Node* next;
+	int refC;
+};
+typedef struct Node ListNode;
 /*
  * Sorted list type.  You need to fill in the type as part of your implementation.
  */
 struct SortedList
 {
-	SortedList* next;
-	void* data;
+	ListNode *head;
 	int (*CompareFuncT)(void*, void*);
 	void (*DestructFuncT)(void *);
 };
 typedef struct SortedList* SortedListPtr;
-
 
 /*
  * Iterator type for user to "walk" through the list item by item, from
@@ -25,7 +29,7 @@ typedef struct SortedList* SortedListPtr;
  */
 struct SortedListIterator
 {
-	SortedList* head;		
+	ListNode *head;
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

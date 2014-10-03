@@ -2,6 +2,7 @@
  * sorted-list.c
  */
 
+#include	<stdio.h>
 #include	<string.h>
 #include	"sorted-list.h"
 
@@ -45,4 +46,51 @@ void destroyBasicTypeNoAlloc(void *p) {
 
 int main()
 {
+	double da = 3.94;
+	double db = 4.80;
+	double dc = 1.337;
+	char* sa = "hello";
+	char* sb = "world";
+	char* sc = "leaders";
+	int ia = 2;
+	int ib = 6;
+	int ic = 3;
+	SortedListPtr test1 = SLCreate(compareDoubles, destroyBasicTypeNoAlloc);
+	SLInsert(test1, (void*)&da);
+	printf("%i is the list refC\n", test1->head->refC);
+	SLInsert(test1, (void*)&db);
+	SLInsert(test1, (void*)&dc);
+	SortedListIteratorPtr tp1 = SLCreateIterator(test1);
+	printf("%i is the iterator refC\n", tp1->head->refC);
+	printf("%f is the data\n", *(double*)SLGetItem(tp1));
+	printf("%f is the next data\n", *(double*)SLNextItem(tp1));
+	printf("%f is the third data\n", *(double*)SLNextItem(tp1));
+	SLRemove(test1, (void*)&da);
+	SLRemove(test1, (void*)&db);
+	SLRemove(test1, (void*)&dc);
+	SLDestroy(test1);
+	SLDestroyIterator(tp1);
+	test1 = SLCreate(compareStrings, destroyBasicTypeNoAlloc);
+	SLInsert(test1, (void*)sa);
+	SLInsert(test1, (void*)sb);
+	SLInsert(test1, (void*)sc);
+	tp1 = SLCreateIterator(test1);
+	printf("%s is the data\n", (char*)SLGetItem(tp1));
+	printf("%s is the next data\n", (char*)SLNextItem(tp1));
+	printf("%s is the third data\n", (char*)SLNextItem(tp1));
+	SLDestroy(test1);
+	SLDestroyIterator(tp1);
+	test1 = SLCreate(compareStrings, destroyBasicTypeNoAlloc);
+	SLInsert(test1, (void*)&ia);
+	SLInsert(test1, (void*)&ib);
+	SLInsert(test1, (void*)&ic);
+	tp1 = SLCreateIterator(test1);
+	printf("%i is the data\n", *(int*)SLGetItem(tp1));
+	printf("%i is the next data\n", *(int*)SLNextItem(tp1));
+	printf("%i is the third data\n", *(int*)SLNextItem(tp1));
+	SLDestroy(test1);
+	SLDestroyIterator(tp1);
+	
+
+	return 1;
 }
